@@ -1,6 +1,7 @@
 
-import React from 'react';
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+
+import { Area, Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+
 import Heading from '../Components/Heading';
 
 
@@ -34,18 +35,25 @@ const Statistics = () => {
 <div>
       <h2 className='font-bold'>Product Price and Rating Line Chart</h2>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart
+        <ComposedChart
           data={data}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="product_title" />
-          <YAxis />
+          <YAxis domain={[0, 100]} />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="price" stroke="#8884d8" name="Price" />
-          <Line type="monotone" dataKey="rating" stroke="#82ca9d" name="Rating" />
-        </LineChart>
+
+          {/* Area for "Total" */}
+          <Area type="monotone" dataKey="total" fill="#a484e9" stroke="#a484e9" opacity={0.3} />
+
+          {/* Bar for "Price" */}
+          <Bar dataKey="price" barSize={20} fill="#7e2cf5" name="Price" />
+
+          {/* Line for "Rating" */}
+          <Line type="monotone" dataKey="rating" stroke="#ff3333" strokeWidth={2} name="Rating" />
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
 
